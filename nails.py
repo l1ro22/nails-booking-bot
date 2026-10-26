@@ -41,7 +41,7 @@ class Booking(StatesGroup):
     name = State()
     phone = State()
 
-
+    
 main_menu = ReplyKeyboardMarkup(
     keyboard=[
         [KeyboardButton(text="Записаться")],
@@ -129,10 +129,21 @@ async def get_phone(message: Message, state: FSMContext):
     if message.contact:
         phone = message.contact.phone_number
     elif message.text:
-        phone = message.text
+        digits = "".join(char for char in message.text if char.isdigit())
+        if len(digits) == 11 and digits[0] in "78":
+            phone = "+7" + digits[1:]
+        else:
+            await message.answer(
+                "Похоже, это не номер телефона 🤔\n"
+                "Введите номер в формате +7 999 123-45-67 или нажмите кнопку ниже."
+            )
+            return
     else:
         await message.answer("Пожалуйста, отправьте номер телефона.")
         return
+
+    data = await state.get_data()
+    await state.clear()
 
     data = await state.get_data()
     await state.clear()

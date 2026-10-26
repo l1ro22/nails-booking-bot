@@ -16,3 +16,5 @@ Python, aiogram 3, FSM, python-dotenv
 1. Установите зависимости: `pip install -r requirements.txt`
 2. Скопируйте `.env.example` в `.env` и заполните `BOT_TOKEN` и `ADMIN_ID`
 3. Запустите: `python nails.py`
+## Как это работает
+![Запись клиента и заявка мастеру](screenshots/booking.png)
