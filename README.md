@@ -17,4 +17,4 @@ Python, aiogram 3, FSM, python-dotenv
 2. Скопируйте `.env.example` в `.env` и заполните `BOT_TOKEN` и `ADMIN_ID`
 3. Запустите: `python nails.py`
 ## Как это работает
-![Запись клиента и заявка мастеру](screenshots/booking.png)
+![Запись клиента и заявка мастеру](screenshots/booking-v2.png)
