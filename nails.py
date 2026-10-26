@@ -143,29 +143,32 @@ async def get_phone(message: Message, state: FSMContext):
         return
 
     data = await state.get_data()
-    await state.clear()
-
-    data = await state.get_data()
-    await state.clear()
 
     user = message.from_user
     username = f"@{user.username}" if user.username else "нет username"
-
-    
     created = datetime.now().strftime("%d.%m.%Y %H:%M")
-    
-    
-    
-    await bot.send_message(
-        ADMIN_ID,
-        "🔔 Новая заявка!\n\n"
-        f"Создана: {created}\n"
-        f"Услуга: {data['service']}\n"
-        f"Удобное время: {data['time']}\n"
-        f"Имя: {data['name']}\n"
-        f"Телефон: {phone}\n"
-        f"Telegram: {username}",
-    )
+
+    try:
+        await bot.send_message(
+            ADMIN_ID,
+            "🔔 Новая заявка!\n\n"
+            f"Создана: {created}\n"
+            f"Услуга: {data['service']}\n"
+            f"Удобное время: {data['time']}\n"
+            f"Имя: {data['name']}\n"
+            f"Телефон: {phone}\n"
+            f"Telegram: {username}",
+        )
+    except Exception as e:
+        logging.error(f"Не удалось отправить заявку мастеру: {e}")
+        await message.answer(
+            "Не получилось отправить заявку 😔 Попробуйте ещё раз чуть позже.",
+            reply_markup=main_menu,
+        )
+        await state.clear()
+        return
+
+    await state.clear()
     await message.answer(
         "Спасибо! Заявка принята ✅\nМастер скоро свяжется с вами, чтобы подтвердить время.",
         reply_markup=main_menu,
