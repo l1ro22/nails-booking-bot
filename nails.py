@@ -182,7 +182,7 @@ async def services(message: Message):
 
 @dp.message(F.text == "Контакты")
 async def contacts(message: Message):
-    await message.answer("Мастер: @ksxzxss\nАдрес:26 линия 35/2 2 подъезд 3 этаж\nтгк с работами:@nogtyzz")
+    await message.answer("тгк с работами:@nogtyzz")
 
 
 @dp.message()
